@@ -98,9 +98,10 @@ export function DatePickerModal(
           >
             <View
               style={[
-                styles.modalContent,
                 { backgroundColor: theme.colors.surface },
-                dimensions.width > 650 ? styles.modalContentBig : null,
+                dimensions.width > 650
+                  ? styles.modalContentBig
+                  : styles.modalContent,
               ]}
             >
               {disableStatusBar ? null : (
@@ -157,7 +158,6 @@ const styles = StyleSheet.create({
     maxWidth: 600,
     maxHeight: 800,
     borderRadius: 10,
-    width: '100%',
     overflow: 'hidden',
   },
 })

@@ -280,7 +280,7 @@ function Month(props: MonthSingleProps | MonthRangeProps | MonthMultiProps) {
 
   const yearPickerEnabled = isHorizontal && !props.disableYearPicker
   return (
-    <View style={[styles.month, { height: getMonthHeight(scrollMode, index) }]}>
+    <View style={styles.month}>
       <View
         style={[
           styles.monthHeader,

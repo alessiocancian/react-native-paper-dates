@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
   empty: {
     flex: 1,
     flexBasis: 0,
+    marginHorizontal: 3,
   },
   disabled: {
     opacity: 0.3,
@@ -106,6 +107,7 @@ const styles = StyleSheet.create({
   root: {
     flexBasis: 0,
     flex: 1,
+    marginHorizontal: 3,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
