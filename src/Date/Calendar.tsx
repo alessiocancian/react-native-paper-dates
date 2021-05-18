@@ -205,7 +205,7 @@ function Calendar(
           />
         )}
       />
-      {scrollMode === 'horizontal' ? (
+      {scrollMode === 'horizontal' && props.disableYearPicker ? (
         <YearPicker
           selectedYear={selectedYear}
           selectingYear={selectingYear}
