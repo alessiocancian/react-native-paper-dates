@@ -1,20 +1,22 @@
 import * as React from 'react'
+import { useMemo } from 'react'
 import {
   Modal,
+  Platform,
+  StatusBar,
   StyleSheet,
   TouchableWithoutFeedback,
   useWindowDimensions,
   View,
-  Platform,
-  StatusBar,
 } from 'react-native'
 
-import { useTheme } from 'react-native-paper'
+import { withTheme } from 'react-native-paper'
 import DatePickerModalContent, {
   DatePickerModalContentMultiProps,
   DatePickerModalContentRangeProps,
   DatePickerModalContentSingleProps,
 } from './DatePickerModalContent'
+import Color from 'color'
 import { useHeaderBackgroundColor, useHeaderColorIsLight } from '../utils'
 
 interface DatePickerModalProps {
@@ -22,6 +24,8 @@ interface DatePickerModalProps {
   animationType?: 'slide' | 'fade' | 'none'
   disableStatusBar?: boolean
   disableStatusBarPadding?: boolean
+  theme: ReactNativePaper.Theme
+  inputTheme?: ReactNativePaper.Theme
 }
 
 export interface DatePickerModalSingleProps
@@ -42,13 +46,14 @@ export function DatePickerModal(
     | DatePickerModalSingleProps
     | DatePickerModalMultiProps
 ) {
-  const theme = useTheme()
   const dimensions = useWindowDimensions()
   const {
     visible,
     animationType,
     disableStatusBar,
     disableStatusBarPadding,
+    theme,
+    inputTheme,
     ...rest
   } = props
   const animationTypeCalculated =
@@ -58,8 +63,12 @@ export function DatePickerModal(
       default: 'slide',
     })
 
-  const isLight = useHeaderColorIsLight()
-  const headerBackgroundColor = useHeaderBackgroundColor()
+  const isLight = useHeaderColorIsLight(theme)
+  const headerBackgroundColor = useHeaderBackgroundColor(theme)
+  const statusBarColor = useMemo<string>(
+    () => Color(theme.colors.primary).darken(0.2).hex(),
+    [theme]
+  )
 
   return (
     <View style={[StyleSheet.absoluteFill]} pointerEvents="box-none">
@@ -113,6 +122,8 @@ export function DatePickerModal(
               <DatePickerModalContent
                 {...rest}
                 disableSafeTop={disableStatusBar}
+                theme={theme}
+                inputTheme={inputTheme}
               />
             </View>
           </View>
@@ -151,4 +162,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default React.memo(DatePickerModal)
+export default withTheme(React.memo(DatePickerModal))

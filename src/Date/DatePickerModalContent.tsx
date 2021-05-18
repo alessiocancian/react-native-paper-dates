@@ -18,6 +18,7 @@ import DatePickerModalContentHeader, {
 } from './DatePickerModalContentHeader'
 import CalendarEdit from './CalendarEdit'
 import DatePickerModalHeaderBackground from './DatePickerModalHeaderBackground'
+import { withTheme } from 'react-native-paper'
 
 export type LocalState = {
   startDate: CalendarDate
@@ -31,6 +32,8 @@ interface DatePickerModalContentBaseProps {
   locale?: undefined | string
   onDismiss: () => any
   disableSafeTop?: boolean
+  theme: ReactNativePaper.Theme
+  inputTheme?: ReactNativePaper.Theme
 }
 
 export interface DatePickerModalContentRangeProps
@@ -79,6 +82,8 @@ export function DatePickerModalContent(
     disableWeekDays,
     locale,
     validRange,
+    theme,
+    inputTheme,
   } = props
 
   const anyProps = props as any
@@ -134,12 +139,13 @@ export function DatePickerModalContent(
 
   return (
     <>
-      <DatePickerModalHeaderBackground>
+      <DatePickerModalHeaderBackground theme={theme}>
         <DatePickerModalHeader
           onSave={onInnerConfirm}
           onDismiss={onDismiss}
           saveLabel={props.saveLabel}
           disableSafeTop={disableSafeTop}
+          theme={theme}
         />
         <DatePickerModalContentHeader
           state={state}
@@ -153,11 +159,13 @@ export function DatePickerModalContent(
           startLabel={props.startLabel}
           endLabel={props.endLabel}
           locale={locale}
+          theme={theme}
         />
       </DatePickerModalHeaderBackground>
 
       <AnimatedCrossView
         collapsed={collapsed}
+        theme={theme}
         calendar={
           <Calendar
             locale={locale}
@@ -169,6 +177,7 @@ export function DatePickerModalContent(
             disableWeekDays={disableWeekDays}
             dates={state.dates}
             validRange={validRange}
+            theme={theme}
           />
         }
         calendarEdit={
@@ -182,6 +191,7 @@ export function DatePickerModalContent(
             onChange={onInnerChange}
             validRange={validRange}
             locale={locale}
+            theme={inputTheme ?? theme}
           />
         }
       />
@@ -189,4 +199,4 @@ export function DatePickerModalContent(
   )
 }
 
-export default React.memo(DatePickerModalContent)
+export default withTheme(React.memo(DatePickerModalContent))

@@ -12,6 +12,7 @@ import {
 import AnalogClock from './AnalogClock'
 import { circleSize } from './timeUtils'
 import TimeInputs from './TimeInputs'
+import { withTheme } from 'react-native-paper'
 
 type onChangeFunc = ({
   hours,
@@ -31,6 +32,7 @@ function TimePicker({
   inputType,
   onChange,
   locale,
+  theme,
 }: {
   locale?: undefined | string
   inputType: PossibleInputTypes
@@ -39,6 +41,7 @@ function TimePicker({
   minutes: number
   onFocusInput: (type: PossibleClockTypes) => any
   onChange: onChangeFunc
+  theme: ReactNativePaper.Theme
 }) {
   const dimensions = useWindowDimensions()
   const isLandscape = dimensions.width > dimensions.height
@@ -72,6 +75,7 @@ function TimePicker({
         onChange={onChange}
         onFocusInput={onFocusInput}
         focused={focused}
+        theme={theme}
       />
       {inputType === inputTypes.picker ? (
         <View style={styles.clockContainer}>
@@ -81,6 +85,7 @@ function TimePicker({
             focused={focused}
             is24Hour={is24Hour}
             onChange={onInnerChange}
+            theme={theme}
           />
         </View>
       ) : null}
@@ -99,4 +104,4 @@ const styles = StyleSheet.create({
   clockContainer: { paddingTop: 36, paddingLeft: 12, paddingRight: 12 },
 })
 
-export default React.memo(TimePicker)
+export default withTheme(React.memo(TimePicker))
