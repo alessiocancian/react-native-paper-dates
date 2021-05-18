@@ -38,6 +38,7 @@ export type BaseCalendarProps = {
   dates?: CalendarDates
   startDate?: CalendarDate
   endDate?: CalendarDate
+  disableYearPicker?: boolean
 }
 
 export type CalendarDate = Date | undefined
@@ -91,6 +92,7 @@ function Calendar(
     dates,
     validRange,
     theme,
+		disableYearPicker,
   } = props
 
   const selectColor = useMemo<string>(() => {
@@ -180,6 +182,7 @@ function Calendar(
             endDate={endDate}
             date={date}
             dates={dates}
+            disableYearPicker={disableYearPicker}
             onPressYear={onPressYear}
             selectingYear={selectingYear}
             onPressDate={onPressDate}

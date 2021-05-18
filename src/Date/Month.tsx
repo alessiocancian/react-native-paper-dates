@@ -51,6 +51,7 @@ interface BaseMonthProps {
   endDate?: CalendarDate
   date?: CalendarDate
   dates?: CalendarDates
+  disableYearPicker?: boolean
 }
 
 interface MonthRangeProps extends BaseMonthProps {
@@ -277,12 +278,13 @@ function Month(props: MonthSingleProps | MonthRangeProps | MonthMultiProps) {
     mode,
   ])
 
+  const yearPickerEnabled = isHorizontal && !props.disableYearPicker
   return (
     <View style={[styles.month, { height: getMonthHeight(scrollMode, index) }]}>
       <View
         style={[
           styles.monthHeader,
-          isHorizontal
+          yearPickerEnabled
             ? {
                 marginTop: monthHeaderSingleMarginTop,
                 marginBottom: monthHeaderSingleMarginBottom,
@@ -291,8 +293,8 @@ function Month(props: MonthSingleProps | MonthRangeProps | MonthMultiProps) {
         ]}
       >
         <TouchableRipple
-          disabled={!isHorizontal}
-          onPress={isHorizontal ? () => onPressYear(year) : undefined}
+          disabled={!yearPickerEnabled}
+          onPress={yearPickerEnabled ? () => onPressYear(year) : undefined}
           style={[
             styles.yearButton,
             {
@@ -316,9 +318,9 @@ function Month(props: MonthSingleProps | MonthRangeProps | MonthMultiProps) {
             >
               {monthName} {year}
             </Text>
-            <View style={isHorizontal ? styles.opacity1 : styles.opacity0}>
+            <View style={yearPickerEnabled ? styles.opacity1 : styles.opacity0}>
               <IconButton
-                onPress={isHorizontal ? () => onPressYear(year) : undefined}
+                onPress={yearPickerEnabled ? () => onPressYear(year) : undefined}
                 icon={selectingYear ? 'chevron-up' : 'chevron-down'}
                 theme={theme}
               />
