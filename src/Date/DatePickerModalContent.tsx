@@ -178,6 +178,7 @@ export function DatePickerModalContent(
             dates={state.dates}
             validRange={validRange}
             theme={theme}
+            disableYearPicker={props.disableYearPicker}
           />
         }
         calendarEdit={

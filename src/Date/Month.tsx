@@ -284,7 +284,7 @@ function Month(props: MonthSingleProps | MonthRangeProps | MonthMultiProps) {
       <View
         style={[
           styles.monthHeader,
-          yearPickerEnabled
+          isHorizontal
             ? {
                 marginTop: monthHeaderSingleMarginTop,
                 marginBottom: monthHeaderSingleMarginBottom,
